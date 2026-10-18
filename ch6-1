@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main() {
+    int X[10];
+    int Y[10];
+    int Z[10];
+    int i;
+
+    // 1. 배열 X에 10개의 정수 입력
+    for(i = 0; i < 10; i++) {
+        scanf("%d", &X[i]);
+    }
+
+    // 2. 배열 Y에 10개의 정수 입력
+    for(i = 0; i < 10; i++) {
+        scanf("%d", &Y[i]);
+    }
+
+    // 3. 배열 X의 앞에서부터, 배열 Y의 뒤에서부터 값을 더해 배열 Z에 저장
+    for(i = 0; i < 10; i++) {
+        Z[i] = X[i] + Y[9 - i];
+        printf("%d ", Z[i]);
+    }
+
+    return 0;
+}
