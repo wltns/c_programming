@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+// swap 함수 정의: 두 원소의 주소(포인터)를 받아 값을 교환
+void swap(int *pa, int *pb) {
+    int temp = *pa;  // pa가 가리키는 원본 값을 temp에 임시 저장
+    *pa = *pb;       // pb가 가리키는 원본 값을 pa가 가리키는 곳에 덮어씀
+    *pb = temp;      // temp에 저장해둔 값을 pb가 가리키는 곳에 넣음
+}
+
+int main() {
+    int a[50];     
+    int *p = a;    // 배열 시작 주소를 포인터 p에 연결
+    int N, a, b;
+
+    scanf("%d", &N);
+
+    for (int i = 0; i < N; i++) {
+        scanf("%d", p + i);
+    }
+
+    scanf("%d %d", &a, &b);
+
+    // swap 함수 호출 (포인터 연산으로 해당 인덱스의 '주소'를 넘겨줌)
+    // p가 배열의 시작 주소이므로, p + a는 a번째 원소의 주소
+    swap(p + a, p + b);
+
+    for (int i = 0; i < N; i++) {
+        printf("%d ", *(p + i));
+    }
+
+    return 0;
+}
