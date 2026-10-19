@@ -8,8 +8,8 @@ void swap(int *pa, int *pb) {
 }
 
 int main() {
-    int a[50];     
-    int *p = a;    // 배열 시작 주소를 포인터 p에 연결
+    int ar[50];     
+    int *p = ar;    // 배열 시작 주소를 포인터 p에 연결
     int N, a, b;
 
     scanf("%d", &N);
