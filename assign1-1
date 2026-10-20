@@ -1,0 +1,78 @@
+#include <stdio.h>
+
+// 함수 원형 선언 (main 함수 위에 작성)
+int* MAX(int *x);
+int* MIN(int *x);
+
+int main() {
+    int ar[100]={0},N,i,*p=ar,*p1,*p2,cnt;
+    scanf("%d", &N); // 반복할 줄 수 N 입력
+
+    for (int i = 0; i < N; i++) {
+        // 포인터를 사용하여 0이 들어올 때까지 배열에 값 입력받기
+        for (p = ar; ; p++) {
+            scanf("%d", p);
+            if (*p == 0) break; // 0이 입력되면 입력 종료
+        }
+
+        // MAX와 MIN 함수를 호출하여 '최대값의 주소'와 '최소값의 주소'를 전달받음
+        p1 = MAX(ar); // 최대값이 저장된 주소
+        p2 = MIN(ar); // 최소값이 저장된 주소
+
+        cnt = 0; // 사이에 출력된 정수의 개수 카운트
+
+        // 입력받은 순서상 먼저 나타난 주소(작은 주소)부터 나중에 나타난 주소(큰 주소)까지 순회
+        if (p1 <= p2) {
+            // 최대값(p1)이 최소값(p2)보다 먼저 입력된 경우
+            for (p = p1 + 1; p < p2; p++) {
+                printf("%d ", *p);
+                cnt++;
+            }
+        } else {
+            // 최소값(p2)이 최대값(p1)보다 먼저 입력된 경우
+            for (p = p2 + 1; p < p1; p++) {
+                printf("%d ", *p);
+                cnt++;
+            }
+        }
+
+        // 사이에 위치한 정수가 하나도 없다면 none 출력
+        if (cnt == 0) {
+            printf("none");
+        }
+    }
+
+    return 0;
+}
+
+// MAX 함수 정의: 배열에서 최대값이 저장된 '주소(int*)'를 반환
+int* MAX(int *x) {
+    int max = *x;
+    int *p;
+    int *maxp = x; // 초기 최대값 위치는 첫 번째 원소 주소
+
+    for (p = x; ; p++) {
+        if (*p == 0) break; // 0을 만나면 검사 종료
+        if (max < *p) {
+            max = *p;
+            maxp = p; // 더 큰 값을 찾으면 해당 주소를 저장
+        }
+    }
+    return maxp; // 최대값의 주소 반환
+}
+
+// 3. MIN 함수 정의: 배열에서 최소값이 저장된 '주소(int*)'를 반환
+int* MIN(int *x) {
+    int min = *x;
+    int *p;
+    int *minp = x; // 초기 최소값 위치는 첫 번째 원소 주소
+
+    for (p = x; ; p++) {
+        if (*p == 0) break; // 0을 만나면 검사 종료
+        if (min > *p) {
+            min = *p;
+            minp = p; // 더 작은 값을 찾으면 해당 주소를 저장
+        }
+    }
+    return minp; // 최소값의 주소 반환
+}
