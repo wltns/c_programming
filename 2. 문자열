@@ -1,1 +1,35 @@
+2. 문자열
 
+2-1. 문자열의 정체 
+
+c에는 문자열 자료형이 따로 없고, 끝에 널 문자 \0이 붙은 char 배열을 문자열로 취급
+
+char s[] = "hello";     // h e l l o \0  → 6칸
+printf("%zu %zu\n", sizeof(s), strlen(s));   // 6 5
+
+- strlen은 \0 앞까지의 길이, sizeof는 배열 전체 크기
+- 크기를 직접 지정할 때는 문자 수 + 1칸 필요
+
+char a[6]  = "hello";   // 정상
+char b[10] = "abc";     // 나머지 칸은 '\0'으로 채워짐 (strlen=3, sizeof=10)
+char c[5]  = "hello";   // '\0' 자리가 없음 → 문자열로 쓰면 위험
+
+2-2. char s[] vs char *s
+
+char s[] = 'hello'; 
+1. s[0]='H'; 가능
+2. s = "world"는 불가능 
+
+char *s = 'hello';
+글자의 위치(주소)만 포인터로 가리키는 것
+
+1. 글자 고치기 불가능
+2. s="world"로 다른 곳 가리키기 가능 
+
+2-3. 입출력 
+
+char name[20];
+scanf("%19s", name);        // 배열 이름 자체가 주소이므로 & 불필요, 공백 전까지만 읽음
+printf("%s\n", name);
+
+fgets(name, sizeof(name), stdin);   // 공백 포함 한 줄 입력 (끝의 '\n'도 저장됨)
