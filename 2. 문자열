@@ -33,3 +33,17 @@ scanf("%19s", name);        // 배열 이름 자체가 주소이므로 & 불필�
 printf("%s\n", name);
 
 fgets(name, sizeof(name), stdin);   // 공백 포함 한 줄 입력 (끝의 '\n'도 저장됨)
+
+2-4. 문자열 함수 <string.h>
+
+strlen(s) : 길이 (\0) 제외 
+strcpy(dst, src) : 복사 / dst가 strlen(src)+1 이상이어야함 
+strncpy(dst, src, n) : 최대 n개 복사 / n개를 꽉 채우면 \0이 안 붙을 수 있음 
+strcat(dst, src) : 이어 붙이기 / dst에 남은 공간 필요
+strcmp(a, b) : 비교 /  같으면 0, 앞이 크면 양수, 작으면 음수 
+strchr(s, c) : 문자 c 첫 위치 주소 / 없으면 NULL
+strstr(s, t) : 부분 문자열 t 첫 위치 주소 / 없으면 NULL
+
+문자열 비교에 == 쓰면 X, ==은 내용이 아니라 주소를 비교 
+
+if (strcmp(a, b) == 0) printf("같음\n");
