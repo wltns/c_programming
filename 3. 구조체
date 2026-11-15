@@ -1,0 +1,100 @@
+3. 구조체 
+
+3-1. 구조체란? 
+
+서로 다른 자료형의 변수들을 하나로 묶은 사용자 정의 자료형
+
+struct Student {
+    char name[20];
+    int  id;
+    double score;
+};
+
+struct Student s1 = {"Kim", 2024001, 93.5};
+printf("%s %d %.1f\n", s1.name, s1.id, s1.score);   // Kim 2024001 93.5
+
+s1.score = 98.0;                 // 멤버 접근은 . 연산자
+strcpy(s1.name, "Lee");          // 문자열 멤버는 대입(=)이 아니라 strcpy
+
+문자열 멤버 (char name[20])에 s1.name = 'Lee'; 처럼 대입 불가 (배열이기때문)
+같은 구조체 변수끼리는 s2=s1;처럼 통째로 복사 가능
+
+3-2. typedef로 이름 줄이기 
+
+typedef struct {
+    int x;
+    int y;
+} Point;
+
+Point p = {3, 4};          // struct를 안 써도 됨
+
+3-3. 구조체 포인터와 ->
+
+Point p = {3, 4};
+Point *pp = &p;
+
+printf("%d\n", (*pp).x);   // 3
+printf("%d\n", pp->x);     // 3  ← 같은 의미, 훨씬 많이 씀
+pp->y = 10;                // p.y가 10으로 바뀜
+
+3-4. 구조체와 함수 
+
+// (1) 값 전달: 복사본이 전달되므로 원본은 바뀌지 않음
+void move_wrong(Point p) {
+    p.x += 1;
+}
+
+// (2) 포인터 전달: 원본이 바뀜, 큰 구조체도 복사하지 않아 효율적
+void move(Point *p) {
+    p->x += 1;
+}
+
+// (3) 읽기만 할 때: const 포인터
+void print_point(const Point *p) {
+    printf("(%d, %d)\n", p->x, p->y);
+}
+
+int main(void) {
+    Point a = {1, 2};
+    move_wrong(a);    // a.x는 그대로 1
+    move(&a);         // a.x가 2
+    print_point(&a);  // (2, 2)
+    return 0;
+}
+
+3-5. 구조체 배열 
+
+Point pts[3] = {{1, 2}, {3, 4}, {5, 6}};
+
+for (int i = 0; i < 3; i++)
+    printf("(%d, %d) ", pts[i].x, pts[i].y);
+
+Point *p = pts;          // 첫 원소 가리킴
+printf("%d\n", (p + 1)->x);   // 3
+
+3-6. 중첩 구조체 
+
+typedef struct { int year, month, day; } Date;
+typedef struct { char name[20]; Date birth; } Person;
+
+Person a = {"Kim", {2005, 3, 14}};
+printf("%d\n", a.birth.year);    // 2005
+
+3-7. 구조체의 크기와 패딩 
+
+컴파일러는 멤버를 정렬하기 위해 중간에 빈 바이트(패딩)를 넣음
+따라서 구조체 크기는 멤버 크기의 단순 합과 다를 수 있음
+
+struct A { char a; int b; char c; };   // sizeof = 12  (1 + 패딩3 + 4 + 1 + 패딩3)
+struct B { int b; char a; char c; };   // sizeof = 8   (4 + 1 + 1 + 패딩2)
+
+-> 멤버 순서를 바꾸면 크기가 줄 수 있음, 구조체 크기는 항상 sizeof(구조체)로 구함
+
+3-8. 자기 참조 구조체 
+
+typedef struct Node {
+    int data;
+    struct Node *next;     // 같은 구조체를 가리키는 포인터
+} Node;
+
+구조체 안에는 자기 자신의 변수는 넣을 수 없고, 자기 자신을 가리키는 포인터만 넣을 수 있음
