@@ -47,3 +47,28 @@ strstr(s, t) : 부분 문자열 t 첫 위치 주소 / 없으면 NULL
 문자열 비교에 == 쓰면 X, ==은 내용이 아니라 주소를 비교 
 
 if (strcmp(a, b) == 0) printf("같음\n");
+
+2-5. 포인터로 문자열 다루기 
+
+// 직접 구현한 strlen
+int my_strlen(const char *s) {
+    int n = 0;
+    while (*s != '\0') {
+        n++;
+        s++;
+    }
+    return n;
+}
+
+// 직접 구현한 strcpy
+void my_strcpy(char *dst, const char *src) {
+    while ((*dst++ = *src++) != '\0')
+        ;
+}
+
+2-6. 문자열 배열 
+
+char names[3][10] = {"kim", "lee", "park"};   // 2차원 char 배열: 3개 × 최대 9글자
+char *fruits[3]   = {"apple", "banana", "cherry"};  // 포인터 배열: 리터럴을 가리킴(수정 불가)
+
+printf("%s %s\n", names[1], fruits[2]);   // lee cherry
