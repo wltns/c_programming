@@ -1,12 +1,8 @@
 #inlcude <stdio.h>
 // mid 함수 정의: 배열의 시작 주소를 받아 중앙값이 저장된 '주소(int*)'를 반환
 int* mid(int *p) {
-    int a = *p;         // 0번 원소의 값
-    int b = *(p + 1);   // 1번 원소의 값
-    int c = *(p + 2);   // 2번 원소의 값
-
-    // a가 중앙값인 경우 (b와 c 사이에 있는 경우)
-    if ((a >= b && a <= c) || (a <= b && a >= c)) {
+    // arr가 중앙값인 경우 (arr+1과 arr+2 사이에 있는 경우)
+    if ((arr >= arr+1 && arr <= arr+2) || (arr <= arr+1 && arr >= arr+2)) {
         return p;       // 0번 원소의 주소 반환
     }
     // b가 중앙값인 경우 (a와 c 사이에 있는 경우)
