@@ -1,1 +1,23 @@
+int add_to_k(int *start, int *end);
 
+int main(){
+
+    int n,d[100],*p,total_sum=0;
+    scanf("%d",&n);
+    for (p=d; p<d+n; p++){
+    scanf("%d",p);
+    }
+    for(p=d; p<d+n; p++){
+      total_sum+=add_to_k(d,p) //d는 항상 배열의 시작 주소, p는 변함 
+    }
+    print("%d",total_sum);
+    return 0; 
+}
+
+int add_to_k(int *start, *end){
+    int sum=0,*p;
+    for (p=start; p<=end; p++){
+      sum+=*p;
+    }
+    return sum;
+}
